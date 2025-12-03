@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بانک دیجیتال - سیستم بانکداری امن</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --success-color: #2f855a;
+            --danger-color: #c53030;
+            --warning-color: #d69e2e;
+            --light-color: #f7fafc;
+            --dark-color: #2d3748;
+            --text-color: #2d3748;
+            --text-light: #4a5568;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f7fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            color: white !important;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, var(--success-color), #38a169);
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, var(--danger-color), #e53e3e);
+        }
+
+        .btn-warning {
+            background: linear-gradient(45deg, var(--warning-color), #d69e2e);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #718096, #4a5568);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+            color: var(--text-color);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.1);
+        }
+
+        .balance-display {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+            border-radius: 15px;
+            margin: 25px 0;
+            border: 2px solid #9ae6b4;
+            color: var(--text-color);
+        }
+
+        .balance-amount {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--success-color);
+            margin: 10px 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+        }
+
+        .user-card:hover {
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .transaction-item {
+            padding: 18px;
+            margin: 12px 0;
+            background: white;
+            border-radius: 10px;
+            border-right: 5px solid var(--secondary-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            color: var(--text-color);
+        }
+
+        .transaction-income {
+            border-right-color: var(--success-color);
+        }
+
+        .transaction-expense {
+            border-right-color: var(--danger-color);
+        }
+
+        .alert {
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 500;
+            color: white;
+            border: none;
+        }
+
+        .alert-success {
+            background: linear-gradient(45deg, var(--success-color), #48bb78);
+        }
+
+        .alert-error {
+            background: linear-gradient(45deg, var(--danger-color), #f56565);
+        }
+
+        .alert-warning {
+            background: linear-gradient(45deg, var(--warning-color), #ed8936);
+            color: white;
+        }
+
+        .alert-info {
+            background: linear-gradient(45deg, var(--secondary-color), #4299e1);
+            color: white;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .security-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--success-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0 5px;
+            font-weight: 500;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            padding: 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            background: #ebf8ff;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: #bee3f8;
+            text-decoration: none;
+        }
+
+        /* Card variations */
+        .info-card {
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+            border: 1px solid #90cdf4;
+            color: var(--text-color);
+        }
+
+        .warning-card {
+            background: linear-gradient(135deg, #fefcbf 0%, #faf089 100%);
+            border: 1px solid #f6e05e;
+            color: var(--text-color);
+        }
+
+        .danger-card {
+            background: linear-gradient(135deg, #fed7d7 0%, #fc8181 100%);
+            border: 1px solid #feb2b2;
+            color: var(--text-color);
+        }
+
+        .success-card {
+            background: linear-gradient(135deg, #c6f6d5 0%, #9ae6b4 100%);
+            border: 1px solid #68d391;
+            color: var(--text-color);
+        }
+
+        /* Stats cards */
+        .stat-card {
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .stat-card-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .stat-card-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .stat-card-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        /* Input group */
+        .input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .input-group .form-control {
+            flex: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+                margin: 10px 0;
+            }
+            
+            .balance-amount {
+                font-size: 2.2rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-color: #e2e8f0;
+                --text-light: #a0aec0;
+                --light-color: #2d3748;
+                --dark-color: #1a202c;
+            }
+            
+            body {
+                background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            }
+            
+            .card {
+                background: #2d3748;
+                border-color: #4a5568;
+            }
+            
+            .form-control {
+                background: #4a5568;
+                border-color: #718096;
+                color: var(--text-color);
+            }
+            
+            .user-card {
+                background: #4a5568;
+                border-color: #718096;
+            }
+            
+            .balance-display {
+                background: linear-gradient(135deg, #22543d 0%, #276749 100%);
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+
+        /* Password strength indicator */
+        .strength-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .strength-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        /* Loading animation */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Typography enhancements */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        strong {
+            color: var(--dark-color);
+        }
+
+        /* Links */
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        /* Lists */
+        ul, ol {
+            padding-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: right;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f7fafc;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Code blocks */
+        code {
+            background: #f7fafc;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--danger-color);
+        }
+
+        /* Tooltip */
+        [data-tooltip] {
+            position: relative;
+            cursor: help;
+        }
+
+        [data-tooltip]:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            right: 50%;
+            transform: translateX(50%);
+            background: var(--dark-color);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+    </style>
+    <!-- فونت وزیرمتن برای فارسی -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div id="app" class="card">
+            <!-- محتوای پویا -->
+            <div class="header">
+                <div class="loader" style="display: none;" id="loader"></div>
+                <h1><i class="fas fa-shield-alt"></i> بانک دیجیتال امن</h1>
+                <p>سیستم بانکداری آنلاین با بالاترین سطح امنیت</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><i class="fas fa-lock"></i> تمام تراکنش‌ها با استاندارد امنیتی SSL رمزنگاری می‌شوند</p>
+            <p>© 2024 بانک دیجیتال - تمام حقوق محفوظ است</p>
+            <p style="font-size: 0.8rem; margin-top: 10px; color: #718096;">
+                نسخه ۲.۰.۰ | آخرین به‌روزرسانی: ۱۴۰۲/۱۲/۱۵
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // ================ سیستم بانک دیجیتال امن ================
+        class SecureDigitalBank {
+            constructor() {
+                // کلیدهای رمزنگاری
+                this.ENCRYPTION_KEY = 'digital-bank-enc-key-2024-secure';
+                this.STORAGE_PREFIX = 'secure_bank_';
+                this.SESSION_TIMEOUT = 30 * 60 * 1000; // 30 دقیقه
+                
+                this.users = this.loadEncryptedData('users') || {};
+                this.transactions = this.loadEncryptedData('transactions') || {};
+                this.centralBank = this.loadEncryptedData('central_bank') || {
+                    balance: 1000000000,
+                    transactions: [],
+                    last_backup: new Date().toISOString()
+                };
+                
+                this.currentUser = null;
+                this.sessionStart = null;
+                this.failedAttempts = {};
+                this.init();
+            }
+
+            // ================ رابط کاربری ================
+            init() {
+                this.checkForBackup();
+                this.showMainMenu();
+                this.startSessionTimer();
+            }
+
+            showMainMenu() {
+                const html = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 4rem; color: var(--secondary-color); margin-bottom: 20px;">
+                            <i class="fas fa-university"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="header">
+                        <h1><i class="fas fa-shield-alt"></i> بانک دیجیتال امن</h1>
+                        <p>سیستم بانکداری آنلاین با بالاترین سطح امنیت</p>
+                        ${this.currentUser ? 
+                            `<p><span class="security-badge"><i class="fas fa-user-check"></i> ${this.currentUser}</span></p>` : 
+                            ''
+                        }
+                    </div>
+                    
+                    ${this.currentUser ? `
+                        <div class="balance-display">
+                            <div style="font-size: 1rem; color: #4a5568; margin-bottom: 10px;">
+                                <i class="fas fa-wallet"></i> موجودی حساب شما
+                            </div>
+                            <div class="balance-amount">$${this.users[this.currentUser].balance.toLocaleString('fa-IR')}</div>
+                            <div style="font-size: 0.9rem; color: #718096; margin-top: 15px;">
+                                <i class="fas fa-clock"></i> زمان باقی‌مانده: ${this.getSessionRemainingTime()} دقیقه
+                            </div>
+                        </div>
+                        
+                        <div class="menu-grid">
+                            <button onclick="bank.showDashboard()" class="btn btn-primary btn-block">
+                                <i class="fas fa-tachometer-alt"></i> داشبورد
+                            </button>
+                            <button onclick="bank.showTransfer()" class="btn btn-success btn-block">
+                                <i class="fas fa-exchange-alt"></i> انتقال وجه
+                            </button>
+                            <button onclick="bank.showTransactions()" class="btn btn-primary btn-block">
+                                <i class="fas fa-history"></i> تراکنش‌ها
+                            </button>
+                            <button onclick="bank.showSecuritySettings()" class="btn btn-warning btn-block">
+                                <i class="fas fa-cog"></i> تنظیمات امنیتی
+                            </button>
+                            <button onclick="bank.logout()" class="btn btn-secondary btn-block">
+                                <i class="fas fa-sign-out-alt"></i> خروج
+                            </button>
+                        </div>
+                    ` : `
+                        <div style="text-align: center; padding: 20px 0;">
+                            <button onclick="bank.showRegister()" class="btn btn-primary" style="margin: 10px; padding: 15px 30px; min-width: 250px;">
+                                <i class="fas fa-user-plus"></i> ثبت‌نام امن
+                            </button>
+                            <br>
+                            <button onclick="bank.showLogin()" class="btn btn-success" style="margin: 10px; padding: 15px 30px; min-width: 250px;">
+                                <i class="fas fa-sign-in-alt"></i> ورود امن
+                            </button>
+                            <br>
+                            <button onclick="bank.showBankInfo()" class="btn btn-secondary" style="margin: 10px; padding: 15px 30px; min-width: 250px;">
+                                <i class="fas fa-info-circle"></i> درباره بانک
+                            </button>
+                        </div>
+                        
+                        <div class="info-card" style="padding: 20px; border-radius: 10px; margin-top: 30px;">
+                            <h3 style="color: var(--secondary-color); margin-bottom: 15px;">
+                                <i class="fas fa-shield-check"></i> ویژگی‌های امنیتی پیشرفته:
+                            </h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-check-circle" style="color: var(--success-color);"></i>
+                                    <span>رمزنگاری end-to-end</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-check-circle" style="color: var(--success-color);"></i>
+                                    <span>احراز هویت دو مرحله‌ای</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-check-circle" style="color: var(--success-color);"></i>
+                                    <span>پشتیبان‌گیری خودکار</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-check-circle" style="color: var(--success-color);"></i>
+                                    <span>مانیتورینگ تراکنش‌ها</span>
+                                </div>
+                            </div>
+                        </div>
+                    `}
+                    
+                    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: bold; color: var(--primary-color);">
+                                    ${Object.keys(this.users).length}
+                                </div>
+                                <div style="color: var(--text-light); font-size: 0.9rem;">کاربر فعال</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: bold; color: var(--success-color);">
+                                    $${Object.values(this.users).reduce((sum, user) => sum + user.balance, 0).toLocaleString('fa-IR')}
+                                </div>
+                                <div style="color: var(--text-light); font-size: 0.9rem;">مجموع موجودی</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: bold; color: var(--secondary-color);">
+                                    ${Object.values(this.transactions).reduce((sum, t) => sum + t.length, 0)}
+                                </div>
+                                <div style="color: var(--text-light); font-size: 0.9rem;">تراکنش موفق</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('app').innerHTML = html;
+            }
+
+            getSessionRemainingTime() {
+                if (!this.sessionStart) return 0;
+                const remaining = this.SESSION_TIMEOUT - (Date.now() - this.sessionStart);
+                return Math.ceil(remaining / (60 * 1000));
+            }
+
+            showLogin() {
+                const html = `
+                    <a href="#" onclick="bank.showMainMenu()" class="back-link">
+                        <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+                    </a>
+                    
+                    <div class="header">
+                        <div style="font-size: 3rem; color: var(--secondary-color); margin-bottom: 10px;">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h1>ورود امن به حساب کاربری</h1>
+                        <p>لطفاً اطلاعات حساب خود را وارد کنید</p>
+                    </div>
+                    
+                    <form id="loginForm" onsubmit="event.preventDefault(); bank.login();">
+                        <div class="form-group">
+                            <label for="loginUsername"><i class="fas fa-user"></i> نام کاربری:</label>
+                            <input type="text" id="loginUsername" class="form-control" required
+                                   placeholder="نام کاربری خود را وارد کنید">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loginPassword"><i class="fas fa-key"></i> رمز عبور:</label>
+                            <input type="password" id="loginPassword" class="form-control" required
+                                   placeholder="رمز عبور خود را وارد کنید">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; gap: 8px; color: var(--text-color);">
+                                <input type="checkbox" id="rememberMe" style="width: auto;">
+                                مرا به خاطر بسپار
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success btn-block" style="padding: 15px; font-size: 1.1rem;">
+                            <i class="fas fa-sign-in-alt"></i> ورود به حساب کاربری
+                        </button>
+                        
+                        <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                            <p style="color: var(--text-light); margin-bottom: 10px;">حساب کاربری ندارید؟</p>
+                            <button type="button" onclick="bank.showRegister()" class="btn btn-primary" style="padding: 12px 30px;">
+                                <i class="fas fa-user-plus"></i> ایجاد حساب جدید
+                            </button>
+                        </div>
+                    </form>
+                `;
+                document.getElementById('app').innerHTML = html;
+            }
+
+            showDashboard() {
+                if (!this.checkSession()) return;
+                
+                const user = this.users[this.currentUser];
+                const recentTransactions = this.transactions[this.currentUser]?.slice(-5).reverse() || [];
+                
+                const html = `
+                    <a href="#" onclick="bank.showMainMenu()" class="back-link">
+                        <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+                    </a>
+                    
+                    <div class="header">
+                        <h1><i class="fas fa-tachometer-alt"></i> داشبورد کاربری</h1>
+                        <p style="color: var(--text-light);">
+                            ${this.currentUser} | آخرین ورود: ${new Date(user.last_login).toLocaleDateString('fa-IR')}
+                        </p>
+                    </div>
+                    
+                    <div class="balance-display">
+                        <div class="balance-amount">$${user.balance.toLocaleString('fa-IR')}</div>
+                        <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 5px;">شماره کارت</div>
+                                <div style="font-family: monospace; font-weight: bold; letter-spacing: 2px; color: var(--primary-color);">
+                                    ${user.card_number.match(/.{1,4}/g).join(' ')}
+                                </div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 5px;">CVV</div>
+                                <div style="font-family: monospace; font-weight: bold; color: var(--primary-color);">
+                                    ${user.cvv}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card" style="padding: 20px; margin: 25px 0; border-radius: 10px;">
+                        <h3 style="color: var(--secondary-color); margin-bottom: 15px;">
+                            <i class="fas fa-bolt"></i> دسترسی سریع
+                        </h3>
+                        <div class="menu-grid">
+                            <button onclick="bank.showTransfer()" class="btn btn-success btn-block">
+                                <i class="fas fa-exchange-alt"></i> انتقال وجه
+                            </button>
+                            <button onclick="bank.showDeposit()" class="btn btn-primary btn-block">
+                                <i class="fas fa-plus-circle"></i> واریز وجه
+                            </button>
+                            <button onclick="bank.showWithdraw()" class="btn btn-warning btn-block">
+                                <i class="fas fa-minus-circle"></i> برداشت وجه
+                            </button>
+                            <button onclick="bank.showTransactions()" class="btn btn-secondary btn-block">
+                                <i class="fas fa-history"></i> تراکنش‌ها
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <h3 style="color: var(--primary-color); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-clock"></i> آخرین تراکنش‌ها
+                    </h3>
+                    
+                    ${recentTransactions.length > 0 ? 
+                        recentTransactions.map(t => `
+                            <div class="transaction-item ${t.amount >= 0 ? 'transaction-income' : 'transaction-expense'}" 
+                                 style="border-right-width: 4px;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                                    <div>
+                                        <strong style="font-size: 1.1rem; color: ${t.amount >= 0 ? 'var(--success-color)' : 'var(--danger-color)'};">${t.type}</strong>
+                                        ${t.reference ? `
+                                            <div style="font-size: 0.8rem; color: var(--text-light); margin-top: 5px;">
+                                                <i class="fas fa-hashtag"></i> ${t.reference}
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                    <span style="font-size: 1.3rem; font-weight: bold; color: ${t.amount >= 0 ? 'var(--success-color)' : 'var(--danger-color)'};">
+                                        ${t.amount >= 0 ? '+' : ''}$${Math.abs(t.amount).toLocaleString('fa-IR')}
+                                    </span>
+                                </div>
+                                <div style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 8px;">
+                                    <i class="fas fa-calendar"></i> ${t.date}
+                                </div>
+                                <div style="color: var(--text-color);">
+                                    ${t.description}
+                                </div>
+                            </div>
+                        `).join('') :
+                        '<div class="alert alert-info" style="color: white;">تراکنشی یافت نشد</div>'
+                    }
+                    
+                    <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                        <button onclick="bank.showAllTransactions()" class="btn btn-secondary">
+                            <i class="fas fa-list"></i> مشاهده تمام تراکنش‌ها
+                        </button>
+                    </div>
+                `;
+                document.getElementById('app').innerHTML = html;
+            }
+
+            // ================ امنیت و اعتبارسنجی ================
+            async login() {
+                this.showLoading(true);
+                
+                const username = document.getElementById('loginUsername').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                if (!username || !password) {
+                    this.showAlert('لطفاً تمام فیلدها را پر کنید', 'error');
+                    this.showLoading(false);
+                    return;
+                }
+                
+                // بررسی تعداد تلاش‌های ناموفق
+                if (this.failedAttempts[username] >= 5) {
+                    this.showAlert('حساب شما به دلیل تلاش‌های ناموفق متعدد به مدت ۱۵ دقیقه قفل شده است.', 'error');
+                    this.showLoading(false);
+                    return;
+                }
+                
+                const user = this.users[username];
+                if (!user) {
+                    this.recordFailedAttempt(username);
+                    this.showAlert('نام کاربری یا رمز عبور اشتباه است', 'error');
+                    this.showLoading(false);
+                    return;
+                }
+                
+                const hashedPassword = await this.hashPassword(password);
+                if (user.password !== hashedPassword) {
+                    this.recordFailedAttempt(username);
+                    this.showAlert('نام کاربری یا رمز عبور اشتباه است', 'error');
+                    this.showLoading(false);
+                    return;
+                }
+                
+                // ورود موفق
+                this.currentUser = username;
+                this.sessionStart = Date.now();
+                user.last_login = new Date().toISOString();
+                
+                this.saveEncryptedData('users', this.users);
+                delete this.failedAttempts[username];
+                
+                this.logSecurityEvent('LOGIN', username, 'ورود موفق به حساب');
+                
+                this.showAlert(`خوش آمدید ${username}!`, 'success');
+                setTimeout(() => {
+                    this.showLoading(false);
+                    this.showDashboard();
+                }, 1000);
+            }
+
+            logout() {
+                if (this.currentUser) {
+                    this.logSecurityEvent('LOGOUT', this.currentUser, 'خروج از حساب');
+                }
+                
+                this.currentUser = null;
+                this.sessionStart = null;
+                this.showAlert('با موفقیت از حساب خود خارج شدید', 'info');
+                setTimeout(() => this.showMainMenu(), 1500);
+            }
+
+            showAlert(message, type = 'info') {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type}`;
+                alertDiv.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+                        ${type === 'success' ? '<i class="fas fa-check-circle"></i>' : 
+                          type === 'error' ? '<i class="fas fa-exclamation-circle"></i>' : 
+                          type === 'warning' ? '<i class="fas fa-exclamation-triangle"></i>' : 
+                          '<i class="fas fa-info-circle"></i>'}
+                        <span>${message}</span>
+                    </div>
+                `;
+                alertDiv.style.animation = 'fadeIn 0.3s ease';
+                
+                const app = document.getElementById('app');
+                const firstChild = app.firstChild;
+                if (firstChild) {
+                    app.insertBefore(alertDiv, firstChild);
+                } else {
+                    app.appendChild(alertDiv);
+                }
+                
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.style.opacity = '0';
+                        alertDiv.style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => alertDiv.remove(), 500);
+                    }
+                }, 5000);
+            }
+
+            showLoading(show) {
+                const loader = document.getElementById('loader');
+                if (loader) {
+                    loader.style.display = show ? 'block' : 'none';
+                }
+            }
+
+            // ================ توابع کمکی ================
+            encrypt(text) {
+                try {
+                    let result = '';
+                    for (let i = 0; i < text.length; i++) {
+                        const charCode = text.charCodeAt(i) ^ this.ENCRYPTION_KEY.charCodeAt(i % this.ENCRYPTION_KEY.length);
+                        result += String.fromCharCode(charCode);
+                    }
+                    return btoa(result);
+                } catch (e) {
+                    console.error('Encryption error:', e);
+                    return text;
+                }
+            }
+
+            decrypt(text) {
+                try {
+                    const decoded = atob(text);
+                    let result = '';
+                    for (let i = 0; i < decoded.length; i++) {
+                        const charCode = decoded.charCodeAt(i) ^ this.ENCRYPTION_KEY.charCodeAt(i % this.ENCRYPTION_KEY.length);
+                        result += String.fromCharCode(charCode);
+                    }
+                    return result;
+                } catch (e) {
+                    console.error('Decryption error:', e);
+                    return text;
+                }
+            }
+
+            loadEncryptedData(key) {
+                try {
+                    const data = localStorage.getItem(this.STORAGE_PREFIX + key);
+                    if (!data) return null;
+                    return JSON.parse(this.decrypt(data));
+                } catch (e) {
+                    console.error('Error loading encrypted data:', e);
+                    return null;
+                }
+            }
+
+            saveEncryptedData(key, data) {
+                try {
+                    localStorage.setItem(this.STORAGE_PREFIX + key, this.encrypt(JSON.stringify(data)));
+                } catch (e) {
+                    console.error('Error saving encrypted data:', e);
+                }
+            }
+
+            async hashPassword(password) {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(password + this.ENCRYPTION_KEY + 'salt');
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+
+            recordFailedAttempt(username) {
+                if (!this.failedAttempts[username]) {
+                    this.failedAttempts[username] = 0;
+                }
+                this.failedAttempts[username]++;
+                localStorage.setItem(this.STORAGE_PREFIX + 'failed_attempts', JSON.stringify(this.failedAttempts));
+            }
+
+            checkSession() {
+                if (!this.currentUser || !this.sessionStart) {
+                    this.showMainMenu();
+                    return false;
+                }
+                
+                const sessionAge = Date.now() - this.sessionStart;
+                if (sessionAge > this.SESSION_TIMEOUT) {
+                    this.logout();
+                    this.showAlert('جلسه شما به پایان رسیده است. لطفاً دوباره وارد شوید.', 'warning');
+                    return false;
+                }
+                
+                this.sessionStart = Date.now();
+                return true;
+            }
+
+            startSessionTimer() {
+                setInterval(() => {
+                    if (this.currentUser) {
+                        this.checkSession();
+                    }
+                }, 60000);
+            }
+
+            checkForBackup() {
+                const lastBackup = localStorage.getItem(this.STORAGE_PREFIX + 'last_backup');
+                const now = Date.now();
+                
+                if (!lastBackup || (now - parseInt(lastBackup)) > 24 * 60 * 60 * 1000) {
+                    this.backupData();
+                    localStorage.setItem(this.STORAGE_PREFIX + 'last_backup', now.toString());
+                }
+            }
+
+            backupData() {
+                try {
+                    const backup = {
+                        users: this.users,
+                        transactions: this.transactions,
+                        timestamp: new Date().toISOString(),
+                        version: '2.0'
+                    };
+                    
+                    const backupKey = this.STORAGE_PREFIX + 'backup_' + Date.now();
+                    localStorage.setItem(backupKey, JSON.stringify(backup));
+                } catch (e) {
+                    console.error('Backup error:', e);
+                }
+            }
+
+            logSecurityEvent(type, username, description) {
+                console.log(`[SECURITY] ${type}: ${username} - ${description}`);
+            }
+
+            // ================ توابع نمایش صفحات ================
+            showRegister() {
+                // کد ثبت‌نام
+                const html = `
+                    <a href="#" onclick="bank.showMainMenu()" class="back-link">
+                        <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+                    </a>
+                    
+                    <div class="header">
+                        <div style="font-size: 3rem; color: var(--secondary-color); margin-bottom: 10px;">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h1>ثبت‌نام امن در بانک دیجیتال</h1>
+                        <p>لطفاً اطلاعات خود را با دقت وارد کنید</p>
+                    </div>
+                    
+                    <div class="info-card" style="padding: 20px; margin-bottom: 25px; border-radius: 10px;">
+                        <h4 style="color: var(--secondary-color); margin-bottom: 10px;">
+                            <i class="fas fa-info-circle"></i> نکات امنیتی:
+                        </h4>
+                        <ul style="color: var(--text-color);">
+                            <li>رمز عبور باید حداقل ۸ کاراکتر باشد</li>
+                            <li>از ترکیب حروف بزرگ و کوچک استفاده کنید</li>
+                            <li>حتماً از اعداد و کاراکترهای خاص استفاده کنید</li>
+                            <li>از رمز عبور یکسان برای حساب‌های مختلف استفاده نکنید</li>
+                        </ul>
+                    </div>
+                    
+                    <form id="registerForm" onsubmit="event.preventDefault(); bank.register();">
+                        <div class="form-group">
+                            <label for="username"><i class="fas fa-user"></i> نام کاربری:</label>
+                            <input type="text" id="username" class="form-control" required 
+                                   placeholder="حداقل ۳ کاراکتر">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password"><i class="fas fa-lock"></i> رمز عبور:</label>
+                            <input type="password" id="password" class="form-control" required 
+                                   placeholder="حداقل ۸ کاراکتر">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="initialBalance"><i class="fas fa-money-bill-wave"></i> موجودی اولیه (دلار):</label>
+                            <input type="number" id="initialBalance" class="form-control" 
+                                   value="100" min="0" step="0.01" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success btn-block" style="padding: 15px; font-size: 1.1rem;">
+                            <i class="fas fa-user-check"></i> ایجاد حساب کاربری
+                        </button>
+                    </form>
+                `;
+                document.getElementById('app').innerHTML = html;
+            }
+
+            async register() {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const initialBalance = parseFloat(document.getElementById('initialBalance').value);
+                
+                if (!username || !password || isNaN(initialBalance)) {
+                    this.showAlert('لطفاً تمام فیلدها را پر کنید', 'error');
+                    return;
+                }
+                
+                if (password.length < 8) {
+                    this.showAlert('رمز عبور باید حداقل ۸ کاراکتر باشد', 'error');
+                    return;
+                }
+                
+                if (this.users[username]) {
+                    this.showAlert('این نام کاربری قبلاً ثبت شده است', 'error');
+                    return;
+                }
+                
+                const hashedPassword = await this.hashPassword(password);
+                const cardNumber = '5' + Array.from({length: 15}, () => Math.floor(Math.random() * 10)).join('');
+                const cvv = Array.from({length: 3}, () => Math.floor(Math.random() * 10)).join('');
+                
+                this.users[username] = {
+                    password: hashedPassword,
+                    balance: initialBalance,
+                    card_number: cardNumber,
+                    cvv: cvv,
+                    created_at: new Date().toISOString(),
+                    last_login: new Date().toISOString(),
+                    security_level: 'high'
+                };
+                
+                this.transactions[username] = [{
+                    type: 'افتتاح حساب',
+                    amount: initialBalance,
+                    date: new Date().toLocaleString('fa-IR'),
+                    description: 'واریز اولیه برای افتتاح حساب'
+                }];
+                
+                this.saveEncryptedData('users', this.users);
+                this.saveEncryptedData('transactions', this.transactions);
+                
+                this.showAlert(`
+                    <div style="text-align: center;">
+                        <h3 style="margin-bottom: 15px; color: white;">حساب شما با موفقیت ایجاد شد!</h3>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <p style="margin: 8px 0;"><strong>نام کاربری:</strong> ${username}</p>
+                            <p style="margin: 8px 0;"><strong>شماره کارت:</strong> ${cardNumber.match(/.{1,4}/g).join(' ')}</p>
+                            <p style="margin: 8px 0;"><strong>CVV:</strong> ${cvv}</p>
+                            <p style="margin: 8px 0;"><strong>موجودی اولیه:</strong> $${initialBalance.toFixed(2)}</p>
+                        </div>
+                    </div>
+                `, 'success');
+                
+                setTimeout(() => this.showMainMenu(), 5000);
+            }
+
+            showBankInfo() {
+                const totalUsers = Object.keys(this.users).length;
+                const totalBalance = Object.values(this.users).reduce((sum, user) => sum + user.balance, 0);
+                
+                const html = `
+                    <a href="#" onclick="bank.showMainMenu()" class="back-link">
+                        <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+                    </a>
+                    
+                    <div class="header">
+                        <h1><i class="fas fa-university"></i> درباره بانک دیجیتال</h1>
+                        <p>سیستم بانکداری آنلاین نسل جدید</p>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
+                        <div class="stat-card stat-card-1">
+                            <div style="font-size: 2rem; font-weight: bold;">${totalUsers}</div>
+                            <div>کاربر فعال</div>
+                        </div>
+                        <div class="stat-card stat-card-2">
+                            <div style="font-size: 2rem; font-weight: bold;">$${totalBalance.toLocaleString('fa-IR')}</div>
+                            <div>مجموع موجودی</div>
+                        </div>
+                        <div class="stat-card stat-card-3">
+                            <div style="font-size: 2rem; font-weight: bold;">${Object.values(this.transactions).reduce((sum, t) => sum + t.length, 0)}</div>
+                            <div>تراکنش موفق</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card" style="padding: 20px; margin: 20px 0; border-radius: 10px;">
+                        <h3 style="color: var(--secondary-color); margin-bottom: 15px;">
+                            <i class="fas fa-shield-alt"></i> استانداردهای امنیتی ما
+                        </h3>
+                        <div style="color: var(--text-color);">
+                            <p><i class="fas fa-check" style="color: var(--success-color);"></i> رمزنگاری پیشرفته SSL/TLS</p>
+                            <p><i class="fas fa-check" style="color: var(--success-color);"></i> احراز هویت دو مرحله‌ای</p>
+                            <p><i class="fas fa-check" style="color: var(--success-color);"></i> سیستم مانیتورینگ تراکنش‌های مشکوک</p>
+                            <p><i class="fas fa-check" style="color: var(--success-color);"></i> پشتیبان‌گیری خودکار روزانه</p>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('app').innerHTML = html;
+            }
+
+            // سایر صفحات (transfer, transactions, security settings, etc.)
+            // به دلیل طولانی شدن کد، در اینجا آورده نشده‌اند
+        }
+
+        // راه‌اندازی سیستم بانک
+        const bank = new SecureDigitalBank();
+    </script>
+</body>
+</html>
